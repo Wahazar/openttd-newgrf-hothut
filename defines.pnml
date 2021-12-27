@@ -1,0 +1,479 @@
+// This is part of HotHut Set NewGRF.
+// Don't include any headers inside this file!
+// (c) G. Wahazar, licence: GPLv2
+
+
+//#define RECOLOUR_BBBB COLOUR_DARK_BLUE, COLOUR_DARK_BLUE, COLOUR_DARK_BLUE, COLOUR_DARK_BLUE
+//#define RECOLOUR_BGOR COLOUR_DARK_BLUE, COLOUR_GREEN, COLOUR_ORANGE, COLOUR_RED
+//fix it later
+//#define RECOLOUR_SCSW COLOUR_WHITE, COLOUR_GREY, COLOUR_CREAM, COLOUR_BROWN
+//#define RECOLOUR_RWBr COLOUR_RED, COLOUR_GREY, COLOUR_WHITE, COLOUR_BROWN
+//#define RECOLOUR_BW COLOUR_RED, COLOUR_GREY, COLOUR_WHITE, COLOUR_BROWN
+
+#define RECOLOUR_N 0
+#define RECOLOUR_BGOR 1
+#define RECOLOUR_SCSW 2
+#define RECOLOUR_RWBr 4
+#define RECOLOUR_BW 8
+#define  RECOLOUR_BGWBr 16
+#define RECOLOUR_SCSW_BGOR 3
+#define RECOLOUR_BBGM 9
+
+
+
+#define TILESWITCHES4(bprefix,bswitchname,sprite_n,sprite_e,sprite_w,sprite_s)  \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_4_##bswitchname, house_tile) { \
+    HOUSE_TILE_NORTH: return sprite_n; \
+    HOUSE_TILE_EAST: return sprite_e; \
+    HOUSE_TILE_WEST: return sprite_w; \
+    HOUSE_TILE_SOUTH: return sprite_s; \
+    return CB_FAILED; \
+}  
+
+#define TILESWITCHES1X2(bprefix,bswitchname,sprite_n,sprite_e)  \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_2_##bswitchname, house_tile) { \
+    HOUSE_TILE_NORTH: return sprite_n; \
+    HOUSE_TILE_EAST: return sprite_e; \
+    return CB_FAILED; \
+}  \
+
+/* snow aware, constructions stages sprite layout for building */
+#define HOUSELAYOUT1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,foo1,foo2,foo3,foo4,foo5,foo6,foo7,foo8,foo9,cargo1a,cargo2a,cargo3a,fooa,foob,fooc,bcolour,cargo1t,cargo2t,cargo3t,foo0,bid,fooo)  \
+  \
+spritelayout layout_##bprefix##_stage0_##bname##_construction { \
+    ground { \
+        sprite: GROUNDSPRITE_CLEARED + boffset; \
+ 	} \
+} \
+\
+spritelayout layout_##bprefix##_stage1_##bname##_construction { \
+    ground { \
+        sprite: GROUNDSPRITE_CLEARED + boffset; \
+ 	} \
+    building { \
+        sprite: spritec1; \
+        xoffset: 8-(bsizexy/2); \
+        yoffset: 8-(bsizexy/2); \
+        zoffset: 0; \
+        xextent: bsizexy; \
+        yextent: bsizexy; \
+        zextent: 16; \
+        recolour_mode: RECOLOUR_NONE; \
+    } \
+} \
+spritelayout layout_##bprefix##_stage2_##bname##_construction { \
+    ground { \
+        sprite: GROUNDSPRITE_CLEARED + boffset; \
+ 	} \
+    building { \
+        sprite: spritec2; \
+        xoffset: 8-(bsizexy/2); \
+        yoffset: 8-(bsizexy/2); \
+        zoffset: 0; \
+        xextent: bsizexy; \
+        yextent: bsizexy; \
+        zextent: bsizez; \
+        recolour_mode: RECOLOUR_REMAP; \
+	palette: PALETTE_USE_DEFAULT;  \
+    } \
+} \
+spritelayout layout_##bprefix##_normterrain_##bname##_finished { \
+    ground { \
+        sprite: GROUNDSPRITE_NORMAL + boffset; \
+ 	} \
+    childsprite { \
+	    sprite: spriteg; \
+		always_draw: 1; \
+	} \
+    building { \
+        sprite: spriteb; \
+        xoffset: 8-(bsizexy/2); \
+        yoffset: 8-(bsizexy/2); \
+        zoffset: 0; \
+        xextent: bsizexy; \
+        yextent: bsizexy; \
+        zextent: bsizez; \
+        recolour_mode: RECOLOUR_REMAP; \
+	palette: PALETTE_USE_DEFAULT;  \
+    } \
+} \
+spritelayout layout_##bprefix##_specterrain_##bname##_finished { \
+    ground { \
+        sprite: GROUNDSPRITE_DESERT_1_2 + boffset; \
+ 	} \
+    childsprite { \
+	    sprite: spritegsn; \
+		always_draw: 1; \
+	} \
+    building { \
+        sprite: spritesn; \
+        xoffset: 8-(bsizexy/2); \
+        yoffset: 8-(bsizexy/2); \
+        zoffset: 0; \
+        xextent: bsizexy; \
+        yextent: bsizexy; \
+        zextent: bsizez; \
+        recolour_mode: RECOLOUR_REMAP; \
+	palette: PALETTE_USE_DEFAULT;  \
+    } \
+} \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_finished_terrainaware, terrain_type) { \
+    	bspecterrain: return layout_##bprefix##_specterrain_##bname##_finished; \
+    	TILETYPE_NORMAL: return layout_##bprefix##_normterrain_##bname##_finished; \
+	return layout_##bprefix##_normterrain_##bname##_finished;  \
+}  \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_construction, construction_state) { \
+	0: return layout_##bprefix##_stage0_##bname##_construction; \
+	1: return layout_##bprefix##_stage1_##bname##_construction; \
+	2: return layout_##bprefix##_stage2_##bname##_construction; \
+    return switch_##bprefix##_house_##bname##_finished_terrainaware; \
+} \
+
+/* one tile building */
+
+#define TOWNBUILDING1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* one tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+\
+RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_foundation, boffset) { \
+	0: return CB_RESULT_FOUNDATIONS; \
+    return CB_RESULT_NO_FOUNDATIONS; \
+} \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_autoslope, boffset) { \
+	0: return CB_RESULT_AUTOSLOPE; \
+    return CB_RESULT_NO_AUTOSLOPE; \
+} \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+   /*     random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        default:   switch_##bprefix##_house_##bname##_construction;  \
+	colour: bprefix##_##bname##_recolour_switch; \
+       	construction_check: return bcheckswitch;  \
+	foundations: switch_##bprefix##_house_##bname##_foundation; \
+	autoslope: switch_##bprefix##_house_##bname##_foundation; \
+    }  \
+}
+
+#define TOWNBUILDINGV2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* one tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_random2, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_construction; \
+	1: return switch_##bprefix##_house_##bname##_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_construction; \
+    	return switch_##bprefix##_house_##bname##_V2_construction; \
+} \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_foundation, boffset) { \
+	0: return CB_RESULT_FOUNDATIONS; \
+    return CB_RESULT_NO_FOUNDATIONS; \
+} \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_autoslope, boffset) { \
+	0: return CB_RESULT_AUTOSLOPE; \
+    return CB_RESULT_NO_AUTOSLOPE; \
+} \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+/*        random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        default:   switch_##bprefix##_house_##bname##_random2;  \
+       	construction_check: return bcheckswitch;  \
+	colour: bprefix##_##bname##_recolour_switch; \
+	foundations: switch_##bprefix##_house_##bname##_foundation; \
+	autoslope: switch_##bprefix##_house_##bname##_foundation; \
+    }  \
+}
+
+#define TOWNBUILDINGV4(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* one tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_random4, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_construction; \
+	1: return switch_##bprefix##_house_##bname##_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_V3_construction; \
+    	return switch_##bprefix##_house_##bname##_V4_construction; \
+} \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+/*        random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        default:   switch_##bprefix##_house_##bname##_random4;  \
+	colour: bprefix##_##bname##_recolour_switch; \
+       	construction_check: return bcheckswitch;  \
+    }  \
+}
+
+#define TOWNBUILDING1X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* north tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+/* east tile defined separately   \
+HOUSELAYOUT1 (bprefix##_E,bname,bclass,spritegE,spritegsnE,spritec1E,spritec2E,spritebE,spritesnE,bsizez,16) */  \
+ \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X2) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+  /*      random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        graphics_north:   switch_##bprefix##_house_##bname##_N_construction;  \
+        graphics_east:   switch_##bprefix##_house_##bname##_E_construction;  \
+       	construction_check: return bcheckswitch;  \
+    }  \
+}
+
+#define TOWNBUILDING2X1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* north tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+/* east tile defined separately   \
+HOUSELAYOUT1 (bprefix##_W,bname,bclass,spritegW,spritegsnW,spritec1W,spritec2W,spritebW,spritesnW,bsizez,16) */ \
+ \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_2X1) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+  /*      random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        graphics_north:   switch_##bprefix##_house_##bname##_N_construction;  \
+        graphics_west:   switch_##bprefix##_house_##bname##_W_construction;  \
+       	construction_check: return bcheckswitch;  \
+    }  \
+}
+
+#define TOWNBUILDING2X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* north tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+/* south, east, west tile defined separately  \
+HOUSELAYOUT1 (bprefix##_S,bname,bclass,spritegS,spritegsnS,spritec1S,spritec2S,spritebS,spritesnS,bsizez,16) \
+HOUSELAYOUT1 (bprefix##_E,bname,bclass,spritegE,spritegsnE,spritec1E,spritec2E,spritebE,spritesnE,bsizez,16) \
+HOUSELAYOUT1 (bprefix##_W,bname,bclass,spritegW,spritegsnW,spritec1W,spritec2W,spritebW,spritesnW,bsizez,16) */ \
+ \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_2X2) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+  /*      random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        graphics_north:   switch_##bprefix##_house_##bname##_N_construction;  \
+        graphics_south:   switch_##bprefix##_house_##bname##_S_construction;  \
+        graphics_east:   switch_##bprefix##_house_##bname##_E_construction;  \
+        graphics_west:   switch_##bprefix##_house_##bname##_W_construction;  \
+       	construction_check: return bcheckswitch;  \
+    }  \
+} 
+
+
+#define TOWNBUILDING1X2V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+/* north tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+/* east tile and V2 tiles defined separately   \
+HOUSELAYOUT1 (...) */  \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_N_random2, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_N_construction; \
+	1: return switch_##bprefix##_house_##bname##_N_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_N_construction; \
+    	return switch_##bprefix##_house_##bname##_N_V2_construction; \
+} \
+\
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_E_random2, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_E_construction; \
+	1: return switch_##bprefix##_house_##bname##_E_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_E_construction; \
+    	return switch_##bprefix##_house_##bname##_E_V2_construction; \
+} \
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X2) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+  /*      random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        graphics_north:   switch_##bprefix##_house_##bname##_N_random2;  \
+        graphics_east:   switch_##bprefix##_house_##bname##_E_random2;  \
+       	construction_check: return bcheckswitch;  \
+    }  \
+}
+
+#define TOWNBUILDING2X1V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+\
+/* north tile */  \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+/* west tile, west V2 tile and W V2 tile defined separately   \
+HOUSELAYOUT1 ... */ \
+ \
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_N_random2, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_N_construction; \
+	1: return switch_##bprefix##_house_##bname##_N_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_N_construction; \
+    	return switch_##bprefix##_house_##bname##_N_V2_construction; \
+} \
+\
+switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_W_random2, pseudo_random_bits) { \
+	0: return switch_##bprefix##_house_##bname##_W_construction; \
+	1: return switch_##bprefix##_house_##bname##_W_V2_construction; \
+	2: return switch_##bprefix##_house_##bname##_W_construction; \
+    	return switch_##bprefix##_house_##bname##_W_V2_construction; \
+} \
+\
+item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_2X1) {  \
+    property {  \
+        /* common properties */  \
+        substitute:                 bsubstitute;  \
+        name:                       string(bstring);  \
+        override:                   bsubstitute;  \
+        building_flags:             bitmask(bflags);  \
+        population:                 bpopul;  \
+        mail_multiplier:            bmail;  \
+        accepted_cargos:            [[cargo1t, cargo1a], [cargo2t, cargo2a], [cargo3t, cargo3a]];  \
+        local_authority_impact:     brating;  \
+        removal_cost_multiplier:    bcost;  \
+        probability:                bprop;  \
+        years_available:            [yearstart, yearend];  \
+        minimum_lifetime:           blife;  \
+        availability_mask:          [bzone,bavail];  \
+  /*      random_colours:             [bcolour]; */ \
+        refresh_multiplier:         0;  \
+        /* no animation info  */  \
+        building_class:             bclass;  \
+    }  \
+ \
+    graphics {  \
+        graphics_north:   switch_##bprefix##_house_##bname##_N_random2;  \
+        graphics_west:   switch_##bprefix##_house_##bname##_W_random2;  \
+       	construction_check: return bcheckswitch;  \
+    }  \
+}
+
+

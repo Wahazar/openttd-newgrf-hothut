@@ -1,0 +1,58 @@
+##grflangid 0x01
+
+# GRF name and description
+STR_GRF_NAME            :{TITLE} {VERSION}
+STR_GRF_DESCRIPTION     :{ORANGE}{TITLE} {VERSION}{BLACK} 
+
+STR_PARAM_NAME_KEEP_ORIG    :Keep original buildings
+STR_PARAM_DESC_KEEP_ORIG    :Select this option to keep original buildings and allow cities to mix them with new buildings. Original houses are disabled by default.
+
+# Town building names
+STR_TOWN_BUILDING_NAME_TALL_OFFICE_BLOCK_1                      :Tall office block
+STR_TOWN_BUILDING_NAME_OFFICE_BLOCK_1                           :Office block
+STR_TOWN_BUILDING_NAME_SMALL_BLOCK_OF_FLATS_1                   :Small block of flats
+STR_TOWN_BUILDING_NAME_CHURCH_1                                 :Church
+STR_TOWN_BUILDING_NAME_LARGE_OFFICE_BLOCK_1                     :Large office block
+STR_TOWN_BUILDING_NAME_TOWN_HOUSES_1                            :Town houses
+STR_TOWN_BUILDING_NAME_HOTEL_1                                  :Hotel
+STR_TOWN_BUILDING_NAME_STATUE_1                                 :Statue
+STR_TOWN_BUILDING_NAME_FOUNTAIN_1                               :Fountain
+STR_TOWN_BUILDING_NAME_PARK_1                                   :Park
+STR_TOWN_BUILDING_NAME_OFFICE_BLOCK_2                           :Office block
+STR_TOWN_BUILDING_NAME_SHOPS_AND_OFFICES_1                      :Shops and offices
+STR_TOWN_BUILDING_NAME_MODERN_OFFICE_BUILDING_1                 :Modern office building
+STR_TOWN_BUILDING_NAME_WAREHOUSE_1                              :Warehouse
+STR_TOWN_BUILDING_NAME_OFFICE_BLOCK_3                           :Office block
+STR_TOWN_BUILDING_NAME_STADIUM_1                                :Stadium
+STR_TOWN_BUILDING_NAME_OLD_HOUSES_1                             :Old houses
+STR_TOWN_BUILDING_NAME_COTTAGES_1                               :Cottages
+STR_TOWN_BUILDING_NAME_HOUSES_1                                 :Houses
+STR_TOWN_BUILDING_NAME_FLATS_1                                  :Flats
+STR_TOWN_BUILDING_NAME_TALL_OFFICE_BLOCK_2                      :Tall office block
+STR_TOWN_BUILDING_NAME_SHOPS_AND_OFFICES_2                      :Shops and offices
+STR_TOWN_BUILDING_NAME_SHOPS_AND_OFFICES_3                      :Shops and offices
+STR_TOWN_BUILDING_NAME_THEATER_1                                :Theatre
+STR_TOWN_BUILDING_NAME_STADIUM_2                                :Stadium
+STR_TOWN_BUILDING_NAME_OFFICES_1                                :Offices
+STR_TOWN_BUILDING_NAME_HOUSES_2                                 :Houses
+STR_TOWN_BUILDING_NAME_CINEMA_1                                 :Cinema
+STR_TOWN_BUILDING_NAME_SHOPPING_MALL_1                          :Shopping centre
+
+STR_TOWN_BUILDING_NAME_ADOBE_HUTS_1				:Adobe huts
+STR_TOWN_BUILDING_NAME_ADOBE_HUTS_AND_GRANARIES_1		:Adobe huts and granaries
+STR_TOWN_BUILDING_NAME_ADOBE_GRANARIES_1			:Adobe granaries
+STR_TOWN_BUILDING_NAME_SACRED_SHRINE_1				:Sacred shrine
+STR_TOWN_BUILDING_NAME_ADOBE_CHIEF_HOUSE_1			:Chief's hut
+STR_TOWN_BUILDING_NAME_ADOBE_WAREHOUSE_1			:Adobe warehouse
+STR_TOWN_BUILDING_NAME_ADOBE_PALACE_1				:Adobe palace 
+
+STR_TOWN_BUILDING_NAME_WATTLE_HUTS_1				:Wattle huts
+
+STR_TOWN_BUILDING_NAME_SHANTY_SHACKS_1				:Shanty shacks
+STR_TOWN_BUILDING_NAME_SHANTY_SHACKS_AND_SHOPS_1		:Shacks and shops
+STR_TOWN_BUILDING_NAME_STILT_HOUSES_1				:Stilt houses
+
+STR_TOWN_BUILDING_NAME_RESIDENTAL_1				:Residental houses
+
+STR_TOWN_BUILDING_NAME_FORT_1				:Military camp
+

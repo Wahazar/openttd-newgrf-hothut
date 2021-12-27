@@ -1,0 +1,82 @@
+grf {
+	grfid: "MC\21\01";
+	name: string(STR_GRF_NAME);
+	desc: string(STR_GRF_DESCRIPTION);
+	version: 2;
+	min_compatible_version: 2;
+
+	param {
+        param_keep_orig {
+            type: bool;
+            bit:  0; // uses 1st bit
+            name: string(STR_PARAM_NAME_KEEP_ORIG);
+            desc: string(STR_PARAM_DESC_KEEP_ORIG);
+        }
+    }
+}
+
+if(!param_keep_orig) {
+    disable_item(FEAT_HOUSES);
+}
+
+
+#define HH_START_DATE      0
+#define HH_CLIMATES        bitmask(CLIMATE_TEMPERATE, CLIMATE_ARCTIC, ABOVE_SNOWLINE, CLIMATE_TROPICAL)
+
+#define HH_PROBABILITY     1.0
+#define MAX_PROBABILITY     15.94
+
+#define CLASS_NONE          0
+#define CLASS_HISTORIC      1
+#define CLASS_HOTEL         2
+#define CLASS_WAREHOUSE    3
+#define CLASS_FLATS         4
+#define CLASS_RESIDENTIAL    (CLASS_FLATS + CLASS_HOTEL)
+#define CLASS_SLUMS 	    5
+
+#define CLASS_TEMPERATE		8
+#define CLASS_ARCTIC		16
+#define CLASS_TROPIC		32
+#define CLASS_TROPIC_FLATS (CLASS_TROPIC + CLASS_FLATS)
+#define CLASS_TROPIC		32
+#define CLASS_TEMPERATE_HOTEL (CLASS_TEMPERATE + CLASS_HOTEL)
+#define CLASS_TEMPERATE_PARK (CLASS_TEMPERATE + CLASS_HISTORIC)
+#define CLASS_TROPIC_WAREHOUSE (CLASS_TROPIC + CLASS_WAREHOUSE)
+
+#define TEMPERATE_PARK_THIS_NEWGRF (CLASS_TEMPERATE_PARK + 256)
+#define RESIDENTIAL_THIS_NEWGRF (CLASS_RESIDENTIAL + 256)
+#define TEMPERATE_HOTEL_THIS_NEWGRF (CLASS_TEMPERATE_HOTEL + 256)
+#define SLUMS_THIS_NEWGRF (CLASS_SLUMS + 256)
+
+// #define HOUSE_TROPIC_FLAT_ID 12
+
+ 
+#define LT_ADDON    1
+#define LT_HOUSE    2
+#define LT_FLATS    3
+#define LT_STADIUM  4
+#define LT_SCHOOL   5
+#define LT_CHURCH   6
+#define LT_HOTEL          8
+#define LT_OFFICES        10
+#define LT_SHOPS        15
+#define LT_INDIVIDUAL     20
+#define LT_GOVERNMENT     40
+#define LT_UNREMOVABLE    60
+
+cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR }
+
+#define MAX_YEAR 9999
+
+#include "defines.pnml"
+#include "switches.pnml"
+#include "templates.pnml"
+#include "gfx/sprites.pnml"
+
+
+#include "tropic.pnml"
+
+
+
+
+
