@@ -163,9 +163,9 @@ switch (FEAT_HOUSES, SELF, sameclassnearby2_switch, nearest_house_matching_crite
     return 1;
 }
 
-switch (FEAT_HOUSES, SELF, desert_only_switch_sameclassnearby2_switch, terrain_type) { 
-    TILETYPE_DESERT : 1; 
-    return sameclassnearby2_switch;
+switch (FEAT_HOUSES, SELF, desert_only_sameclassnearby2_switch, terrain_type) { 
+    TILETYPE_DESERT : sameclassnearby2_switch; 
+    return 0;
 }
 
 
@@ -527,6 +527,10 @@ switch (FEAT_HOUSES, SELF,  norainforest_sametypenearby10_max1_switch, terrain_t
     return sametypenearby10_max1_switch;
 }
 
+switch (FEAT_HOUSES, SELF, nearby_road_norainforest_sametypenearby10_max1_switch, ((nearby_tile_class(-1,0)==TILE_CLASS_ROAD) )) { 
+    1 : return norainforest_sametypenearby10_max1_switch; 
+    return 0;
+}
 
 switch (FEAT_HOUSES, SELF,  norainforest_noresidentials_nearby_switch, terrain_type) { 
     TILETYPE_RAIN_FOREST : 0; 
@@ -538,10 +542,22 @@ switch (FEAT_HOUSES, SELF, not_low_switch, (nearby_tile_height(0,0) + nearby_til
     return 0;
 } 
 
-switch (FEAT_HOUSES, SELF, roadNW_not_low_switch, ((nearby_tile_class(0,2)==TILE_CLASS_ROAD) && (nearby_tile_class(1,2)==TILE_CLASS_ROAD))) { 
+switch (FEAT_HOUSES, SELF, roadNW_not_low_switch, ((nearby_tile_class(0,2)==TILE_CLASS_ROAD) || (nearby_tile_class(1,2)==TILE_CLASS_ROAD))) { 
    1: return not_low_switch; 
     return 0;
 } 
+
+switch (FEAT_HOUSES, SELF, roadNW_not_low_switch_desert_or_rainforest, terrain_type) { 
+   TILETYPE_RAIN_FOREST: return roadNW_not_low_switch; 
+   TILETYPE_DESERT: return roadNW_not_low_switch;
+    return 0;
+} 
+
+switch (FEAT_HOUSES, SELF,  desertonly_noresidentials_nearby_switch, terrain_type) { 
+    TILETYPE_DESERT : noresidentials_nearby_switch; 
+    return 0;
+}
+
 
 /*
 switch (FEAT_HOUSES, SELF,  checkdirt_switch, var[0x62,24,0xF,0x00]) {  

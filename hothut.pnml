@@ -64,7 +64,7 @@ if(!param_keep_orig) {
 #define LT_GOVERNMENT     40
 #define LT_UNREMOVABLE    60
 
-cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR }
+cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR, LVST }
 
 #define MAX_YEAR 9999
 

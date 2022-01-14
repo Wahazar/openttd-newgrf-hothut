@@ -1,6 +1,6 @@
-VERSION        :noRev
-VERSION_STRING :noRev
-TITLE          :HotHut noRev
+VERSION        :
+VERSION_STRING :
+TITLE          :HotHut 
 FILENAME       :hothut.grf
 REPO_HASH      :
-NEWGRF_VERSION :0
+NEWGRF_VERSION :

@@ -207,8 +207,32 @@ spriteset (spriteset_fortsold)
 	{	template_houses_70(0,303,"gfx/fortsold.png")}
 spriteset (spriteset_fortsold_gnd)
 	{	template_houses_70(0,303,"gfx/fortsold_gnd.png")}
+spriteset (spriteset_fortsold_desert)
+	{	template_houses_70(0,303,"gfx/fortsold_desert.png")}
+spriteset (spriteset_fortsold_desert_gnd)
+	{	template_houses_70(0,303,"gfx/fortsold_desert_gnd.png")}
 
-
+spriteset (spriteset_horse_racetrack)
+	{	template_houses_70(0,303,"gfx/horse_racetrack.png")}
+spriteset (spriteset_horse_racetrack_gnd)
+	{	template_houses_70(0,303,"gfx/horse_racetrack_gnd.png")}
+	
+spriteset (spriteset_tents)
+	{	template_houses_70(0,303,"gfx/tents.png")}
+spriteset (spriteset_tents_gnd)
+	{	template_houses_70(0,303,"gfx/tents_gnd.png")}
+spriteset (spriteset_tents_c2)
+	{	template_houses_70(0,202,"gfx/tents.png")}
+spriteset (spriteset_tents_c1)
+	{	template_houses_70(0,202,"gfx/tents_gnd.png")}
+	
+spriteset (spriteset_desert_houses1)
+	{	template_houses_70(0,303,"gfx/desert_houses1.png")}
+spriteset (spriteset_desert_houses1_gnd)
+	{	template_houses_70(0,303,"gfx/desert_houses1_gnd.png")}
+spriteset (spriteset_desert_houses1_c1)
+	{	template_houses_70(0,202,"gfx/desert_houses1.png")}
+		
 /* fail
 switch (FEAT_HOUSES, SELF, spriteset_residental3_rswitch1_gnd, pseudo_random_bits) { 
 	0..1: return spriteset_residental3_garden1_gnd(1); 
