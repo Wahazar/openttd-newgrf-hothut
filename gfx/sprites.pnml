@@ -64,6 +64,12 @@ spriteset (spriteset_claygranaries_fences)
 spriteset (spriteset_claygranaries_fences_gnd)
 	{	template_houses_70(0,303,"gfx/claygranaries_fences_gnd.png")}
 
+spriteset (spriteset_claygranaries_desert)
+	{	template_houses_70(0,303,"gfx/claygranaries_desert.png")}
+
+spriteset (spriteset_claygranaries_desert_gnd)
+	{	template_houses_70(0,303,"gfx/claygranaries_desert_gnd.png")}
+
 spriteset (spriteset_clayspecials)
 	{	template_houses_70(0,303,"gfx/clayspecials.png")}
 

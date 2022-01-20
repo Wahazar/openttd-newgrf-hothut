@@ -96,17 +96,17 @@ switch (FEAT_HOUSES, SELF, check_samecount2_switch, same_house_count_town) {
     return 0;
 }
 
-switch (FEAT_HOUSES, PARENT, check_samecount2_switch_or_capital, is_city) { 
-    0 : return check_samecount2_switch; 
-    return 1;
-}
 
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_switch, nearest_house_matching_criterion(4,SEARCH_HOUSE_BY_CLASS)) { 
+switch (FEAT_HOUSES, SELF, sametypenearby4_max_switch, nearest_house_matching_criterion(4,SEARCH_HOUSE_BY_TYPE)) { 
     0: return 1; 
+    1: return 0;
+    2: return 0;
+    3: return 0;    
+    3: return 1;        
     return 0;
 }
 
-switch (FEAT_HOUSES, SELF, sametypenearby3_max3_switch, nearest_house_matching_criterion(3,SEARCH_HOUSE_BY_TYPE)) { 
+switch (FEAT_HOUSES, SELF, sametypenearby3_max_switch, nearest_house_matching_criterion(3,SEARCH_HOUSE_BY_TYPE)) { 
     0: return 1; 
     1: return 0;
     2: return 0;
@@ -114,14 +114,6 @@ switch (FEAT_HOUSES, SELF, sametypenearby3_max3_switch, nearest_house_matching_c
     return 0;
 }
 
-//switch (FEAT_HOUSES, SELF, sametypenearby4_max2_switch, nearest_house_matching_criterion(4,SEARCH_HOUSE_BY_TYPE)) { 
-//    0: return 1; 
-//    1: return 0;
-//    2: return 0;
-//    3: return 1;
-//    4: return 1;        
-//    return 0;
-//}
 
 switch (FEAT_HOUSES, SELF, sametypenearby5_max1_switch, nearest_house_matching_criterion(4,SEARCH_HOUSE_BY_TYPE)) { 
     0: return 1; 
@@ -143,61 +135,25 @@ switch (FEAT_HOUSES, SELF,  no_desert_switch, terrain_type) {
     return no_nearby_desert_switch;
 }
 
-switch (FEAT_HOUSES, SELF,  normal_only_switch, terrain_type) { 
-    TILETYPE_NORMAL : 1; 
+switch (FEAT_HOUSES, SELF,  normal_only_switch, (terrain_type == TILETYPE_NORMAL)) {return ;}
+
+switch (FEAT_HOUSES, SELF,  desert_only_switch, (terrain_type == TILETYPE_DESERT)) {return;}
+
+switch (FEAT_HOUSES, SELF,  rainforest_only_switch, (terrain_type == TILETYPE_RAIN_FOREST)) {return;}
+
+switch (FEAT_HOUSES, SELF, sameclassnearby2_switch, (nearest_house_matching_criterion(2,SEARCH_HOUSE_BY_CLASS) > 0)) {return;}
+
+
+switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch, ((nearby_tile_house_class(-1,-1) == TEMPERATE_PARK_THIS_NEWGRF) || 
+							 (nearby_tile_house_class(1,1)   == TEMPERATE_PARK_THIS_NEWGRF) || 
+							 (nearby_tile_house_class(0,1)   == TEMPERATE_PARK_THIS_NEWGRF) || 
+							 (nearby_tile_house_class(1,-1)   == TEMPERATE_PARK_THIS_NEWGRF) ||
+							 (nearby_tile_house_class(-1,0)  == TEMPERATE_PARK_THIS_NEWGRF) ||
+							 (nearby_tile_house_class(0,-1)  == TEMPERATE_PARK_THIS_NEWGRF) ||
+							 (nearby_tile_house_class(-1,1)  == TEMPERATE_PARK_THIS_NEWGRF)
+							)) { 
+   1: return 1; 
     return 0;
-}
-
-switch (FEAT_HOUSES, SELF,  desert_only_switch, terrain_type) { 
-    TILETYPE_DESERT : 1; 
-    return 0;
-}
-
-switch (FEAT_HOUSES, SELF,  rainforest_only_switch, terrain_type) { 
-    TILETYPE_RAIN_FOREST : 1; 
-    return 0;
-}
-
-switch (FEAT_HOUSES, SELF, sameclassnearby2_switch, nearest_house_matching_criterion(2,SEARCH_HOUSE_BY_CLASS)) { 
-    0: return 0; 
-    return 1;
-}
-
-switch (FEAT_HOUSES, SELF, desert_only_sameclassnearby2_switch, terrain_type) { 
-    TILETYPE_DESERT : sameclassnearby2_switch; 
-    return 0;
-}
-
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch0_1, (nearby_tile_house_class(0,-1))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return sametypenearby3_max3_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch_10, (nearby_tile_house_class(-1,0))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return 1; 
-    return adjacenttropicpark_switch0_1;
-} 
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch10, (nearby_tile_house_class(1,0))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return 1; 
-    return adjacenttropicpark_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch01, (nearby_tile_house_class(0,1))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return 1; 
-
-    return adjacenttropicpark_switch10;
-} 
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch11, (nearby_tile_house_class(1,1))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return 1; 
-    return adjacenttropicpark_switch01;
-} 
-
-switch (FEAT_HOUSES, SELF, adjacenttropicpark_switch, (nearby_tile_house_class(-1,-1))) { 
-   TEMPERATE_PARK_THIS_NEWGRF: return 1; 
-    return adjacenttropicpark_switch11;
 } 
 
 /*
@@ -212,299 +168,130 @@ switch (FEAT_HOUSES, SELF, nearby_road_switch, ((nearby_tile_class(1,0)==TILE_CL
     return 0;
 }
 
-switch (FEAT_HOUSES, SELF, nearby_road_no_desert_switch, ((nearby_tile_class(1,0)==TILE_CLASS_ROAD) || (nearby_tile_class(0,-1)==TILE_CLASS_ROAD))) { 
-    1 : return no_desert_switch; 
+switch (FEAT_HOUSES, SELF, sameclassnearby3_max_switch, nearest_house_matching_criterion(3,SEARCH_HOUSE_BY_CLASS)) { 
+    0 : return 1; 
+    1 : 0; 
+    2 : 0;
+    return 1;
+}
+
+switch (FEAT_HOUSES, SELF, sametypenearby10_max_switch, nearest_house_matching_criterion(10,SEARCH_HOUSE_BY_TYPE)) { 
+    0: return 1; 
     return 0;
 }
 
-switch (FEAT_HOUSES, SELF, nearby_road_sameclassnearby3_max2_switch, nearest_house_matching_criterion(3,SEARCH_HOUSE_BY_CLASS)) { 
-    0 : return nearby_road_switch; 
-    1 : return nearby_road_switch; 
-    return 0;
-}
 
 switch (FEAT_HOUSES, SELF, nearby_track_switch, ((nearby_tile_class(1,0)==TILE_CLASS_STATION) || (nearby_tile_class(0,1)==TILE_CLASS_STATION) || (nearby_tile_class(0,-1)==TILE_CLASS_STATION) || (nearby_tile_class(-1,0)==TILE_CLASS_STATION))) { 
     1 : return 1; 
     return 0;
 }
 
-switch (FEAT_HOUSES, SELF, check_samecount1_no_desert_switch, same_house_count_town) { 
-    0: return no_desert_switch; 
-    return 0;
-}
+switch (FEAT_HOUSES, SELF, check_samecount1_switch, (same_house_count_town == 0)) {return ;}
 
-switch (FEAT_HOUSES, SELF, noslums_switch_11, (nearby_tile_house_class(-1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
+
+switch (FEAT_HOUSES, SELF, noslums_switch, ((nearby_tile_house_class(-1,-1) == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(1,1)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(0,1)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(1,0)   == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,0)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(0,-1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(1,-1)  == SLUMS_THIS_NEWGRF)
+					)) { 
+   1: return 0; 
     return 1;
 } 
 
-switch (FEAT_HOUSES, SELF, noslums_switch1_1, (nearby_tile_house_class(1,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch_11;
-} 
 
-switch (FEAT_HOUSES, SELF, noslums_switch0_1, (nearby_tile_house_class(0,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch1_1;
-} 
-
-switch (FEAT_HOUSES, SELF, noslums_switch_10, (nearby_tile_house_class(-1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch0_1;
-} 
-
-switch (FEAT_HOUSES, SELF, noslums_switch10, (nearby_tile_house_class(1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, noslums_switch01, (nearby_tile_house_class(0,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch10;
-} 
-
-switch (FEAT_HOUSES, SELF, noslums_switch11, (nearby_tile_house_class(1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0;  
-    return noslums_switch01;
-} 
-
-switch (FEAT_HOUSES, SELF, noslums_switch, (nearby_tile_house_class(-1,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return noslums_switch11;
-} 
-
-
-switch (FEAT_HOUSES, SELF, sametypenearby10_max1_noslums_switch, nearest_house_matching_criterion(10,SEARCH_HOUSE_BY_TYPE)) { 
-    0: return noslums_switch; 
-    return 0;
+switch (FEAT_HOUSES, PARENT, oneintown_or_nearby10_switch, is_city) { 
+    0 : return check_samecount1_switch; 
+    return sametypenearby10_max_switch;
 }
 
-switch (FEAT_HOUSES, PARENT, oneintown_no_desert_switch, is_city) { 
-    0 : return check_samecount1_no_desert_switch; 
-    return sametypenearby10_max1_noslums_switch;
-}
 
-switch (FEAT_HOUSES, PARENT, oneincity_no_desert_switch, is_city) { 
-    1 : return check_samecount1_no_desert_switch; 
-    return 0;
-}
+switch (FEAT_HOUSES, PARENT, onlytown_switch, (!is_city)) {return;}
 
-switch (FEAT_HOUSES, SELF, sameclassnearby2_no_desert_switch, terrain_type) { 
-    TILETYPE_DESERT : return 0; 
-    return sameclassnearby2_switch;
-}
-switch (FEAT_HOUSES, PARENT, sameclassnearby2_no_desert_onlytown_switch, is_city) { 
-    0 : return sameclassnearby2_no_desert_switch; 
-    return 0;
-}
+switch (FEAT_HOUSES, PARENT, onlycity_switch, is_city) {return;}
 
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch_11, (nearby_tile_house_class(-1,1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
+
+//switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch, (nearby_tile_house_class(-1,-1))) { 
+//   RESIDENTIAL_THIS_NEWGRF: return 0; 
+//   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
+//    return noresidentials_nearby_switch11;
+//} 
+
+switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch, 	((nearby_tile_house_class(-1,-1) == RESIDENTIAL_THIS_NEWGRF) || 
+								 (nearby_tile_house_class(1,1)   == RESIDENTIAL_THIS_NEWGRF) || 
+					     			 (nearby_tile_house_class(0,1)   == RESIDENTIAL_THIS_NEWGRF) || 
+					     			 (nearby_tile_house_class(1,0)   == RESIDENTIAL_THIS_NEWGRF) ||
+					     			 (nearby_tile_house_class(-1,0)  == RESIDENTIAL_THIS_NEWGRF) ||
+					     			 (nearby_tile_house_class(0,-1)  == RESIDENTIAL_THIS_NEWGRF) ||
+					     			 (nearby_tile_house_class(-1,1)  == RESIDENTIAL_THIS_NEWGRF) ||
+					     			 (nearby_tile_house_class(1,-1)  == RESIDENTIAL_THIS_NEWGRF)
+					)) { 
+   1: return 0; 
     return 1;
 } 
 
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch1_1, (nearby_tile_house_class(1,-1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch_11;
-} 
+switch (FEAT_HOUSES, SELF, slope_NE_switch, (nearby_tile_slope(0,0) == SLOPE_NE)) {return;}
 
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch0_1, (nearby_tile_house_class(0,-1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch1_1;
-} 
-
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch_10, (nearby_tile_house_class(-1,0))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0;
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0; 
-    return noresidentials_nearby_switch0_1;
-} 
-
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch10, (nearby_tile_house_class(1,0))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch01, (nearby_tile_house_class(0,1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch10;
-} 
-
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch11, (nearby_tile_house_class(1,1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch01;
-} 
-
-switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch, (nearby_tile_house_class(-1,-1))) { 
-   RESIDENTIAL_THIS_NEWGRF: return 0; 
-   TEMPERATE_HOTEL_THIS_NEWGRF: return 0;
-    return noresidentials_nearby_switch11;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch_11, (nearby_tile_house_class(-1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_switch;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch1_1, (nearby_tile_house_class(1,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch_11;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch0_1, (nearby_tile_house_class(0,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch1_1;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch_10, (nearby_tile_house_class(-1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch0_1;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch10, (nearby_tile_house_class(1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch01, (nearby_tile_house_class(0,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch10;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch11, (nearby_tile_house_class(1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0;  
-    return sameclassnearby4_max1_noslums_switch01;
-} 
-
-switch (FEAT_HOUSES, SELF, sameclassnearby4_max1_noslums_switch, (nearby_tile_house_class(-1,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return sameclassnearby4_max1_noslums_switch11;
-} 
-
-
-switch (FEAT_HOUSES, SELF, slope_NE_no_desert_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_NE: return no_desert_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, SELF, slope_NE_noresidentials_nearby_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_NE: return noresidentials_nearby_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, SELF, slope_NE_sameclassnearby2_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_NE: return sameclassnearby2_switch; 
-    return 0;
-} 
+ 
 
 switch (FEAT_HOUSES, SELF, nearby10_water_switch, (nearby_tile_water_class(1,0))) { 
    WATER_CLASS_NONE: return 0; 
     return 1;
 } 
-switch (FEAT_HOUSES, SELF, nearby01_water_switch, (nearby_tile_water_class(0,1))) { 
-   WATER_CLASS_NONE: return nearby10_water_switch; 
-    return 1;
-} 
-switch (FEAT_HOUSES, SELF, nearby0_1_water_switch, (nearby_tile_water_class(0,-1))) { 
-   WATER_CLASS_NONE: return nearby01_water_switch; 
-    return 1;
-} 
-switch (FEAT_HOUSES, SELF, nearby_water_switch, (nearby_tile_water_class(-1,0))) { 
-   WATER_CLASS_NONE: return nearby0_1_water_switch; 
-    return 1;
+
+switch (FEAT_HOUSES, SELF, nearby_water_switch, (nearby_tile_is_water(-1,0) ||  
+						   nearby_tile_is_water(0,1)  ||
+						   nearby_tile_is_water(1,0)  ||
+						   nearby_tile_is_water(0,-1)
+					)) {  
+   1 : return 1; 
+    return 0;
 } 
 
-switch (FEAT_HOUSES, SELF, nearby_water_switch_sameclassnearby2_switch,  nearest_house_matching_criterion(2,SEARCH_HOUSE_BY_CLASS)) { 
-   0: return 0; 
-    return nearby_water_switch;
-} 
 
 switch (FEAT_HOUSES, SELF, slope_NE_nearby10_water_switch, (nearby_tile_slope(0,0))) { 
    SLOPE_NE: return nearby10_water_switch; 
     return 0;
 } 
 
-switch (FEAT_HOUSES, SELF, slope_SW_no_desert_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_SW: return no_desert_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, SELF, slope_SW_nearby_water_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_SW: return nearby_water_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, SELF, slope_SW_sameclassnearby2_switch, (nearby_tile_slope(0,0))) { 
-   SLOPE_SW: return sameclassnearby2_switch; 
-    return 0;
-} 
-
-switch (FEAT_HOUSES, PARENT, popmin1500_sameclassnearby2_switch, (population)) { 
-   0..1499: return 0; 
-    return sameclassnearby2_switch;
-} 
-
-switch (FEAT_HOUSES, PARENT, popmin1000_sametypenearby1_max1_switch, (population)) { 
-   0..999: return 0; 
-    return sametypenearby1_max1_switch;
-} 
+switch (FEAT_HOUSES, SELF, slope_SW_switch, (nearby_tile_slope(0,0) == SLOPE_SW)) {return;} 
 
 
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch11, (nearby_tile_house_class(1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_sametypenearby1_max1_switch;
-} 
 
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch_11, (nearby_tile_house_class(-1,1))) { 
-   SLUMS_THIS_NEWGRF: return 0;  
-    return popmin1000_noslums_switch11;
-} 
+switch (FEAT_HOUSES, PARENT, popmin1500_switch, (population > 1499)) {return;}
+ 
+switch (FEAT_HOUSES, PARENT, popmin1000_switch, (population > 999)) {return;}
 
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch1_1, (nearby_tile_house_class(1,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch_11;
-} 
+switch (FEAT_HOUSES, SELF, noslums12_switch, !((nearby_tile_house_class(-1,-1) == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(1,1)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(0,2)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(1,0)   == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,0)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(0,-1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(1,-1)  == SLUMS_THIS_NEWGRF)
+					)) {return;} 
+//   1: return 0; 
+//    return 1;
+//} 
 
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch0_1, (nearby_tile_house_class(0,-1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch1_1;
-} 
-
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch_10, (nearby_tile_house_class(-1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch0_1;
-} 
-
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch10, (nearby_tile_house_class(1,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, popmin1000_noslums_switch01, (nearby_tile_house_class(0,1))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch_10;
-} 
-
-switch (FEAT_HOUSES, SELF, popmin1000_noslums12_switch, (nearby_tile_house_class(0,2))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch10;
-} 
-
-switch (FEAT_HOUSES, SELF, popmin1000_noslums21_switch, (nearby_tile_house_class(2,0))) { 
-   SLUMS_THIS_NEWGRF: return 0; 
-    return popmin1000_noslums_switch01;
+switch (FEAT_HOUSES, SELF, noslums21_switch, ((nearby_tile_house_class(-1,-1) == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(1,1)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(0,1)   == SLUMS_THIS_NEWGRF) || 
+					     (nearby_tile_house_class(2,0)   == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,0)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(0,-1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(-1,1)  == SLUMS_THIS_NEWGRF) ||
+					     (nearby_tile_house_class(1,-1)  == SLUMS_THIS_NEWGRF)
+					)) { 
+   1: return 0; 
+    return 1;
 } 
 
 
-switch (FEAT_HOUSES, SELF, desert_only_sametypenearby10_max1_noslums_switch, terrain_type) { 
-    TILETYPE_DESERT: return sametypenearby10_max1_noslums_switch; 
-    return 0;
-}
 
 //switch (FEAT_HOUSES, SELF, slope_SE_switch, (nearby_tile_slope(0,0))) { 
 //   SLOPE_SE: return 1; 
@@ -517,39 +304,20 @@ switch (FEAT_HOUSES, SELF, slope_NW_switch, (nearby_tile_slope(0,0))) {
 } 
 
 
-switch (FEAT_HOUSES, SELF, sametypenearby10_max1_switch, nearest_house_matching_criterion(10,SEARCH_HOUSE_BY_TYPE)) { 
-    0: return 1; 
-    return 0;
-}
+switch (FEAT_HOUSES, SELF,  norainforest_switch, (terrain_type != TILETYPE_RAIN_FOREST)) {return ;}
 
-switch (FEAT_HOUSES, SELF,  norainforest_sametypenearby10_max1_switch, terrain_type) { 
-    TILETYPE_RAIN_FOREST : 0; 
-    return sametypenearby10_max1_switch;
-}
-
-switch (FEAT_HOUSES, SELF, nearby_road_norainforest_sametypenearby10_max1_switch, ((nearby_tile_class(-1,0)==TILE_CLASS_ROAD) )) { 
-    1 : return norainforest_sametypenearby10_max1_switch; 
-    return 0;
-}
-
-switch (FEAT_HOUSES, SELF,  norainforest_noresidentials_nearby_switch, terrain_type) { 
-    TILETYPE_RAIN_FOREST : 0; 
-    return noresidentials_nearby_switch;
-}
 
 switch (FEAT_HOUSES, SELF, not_low_switch, (nearby_tile_height(0,0) + nearby_tile_height(1,1) -nearby_tile_height(-2,-2) - nearby_tile_height(3,3) ) >= 0) { 
    1: return 1; 
     return 0;
 } 
 
-switch (FEAT_HOUSES, SELF, roadNW_not_low_switch, ((nearby_tile_class(0,2)==TILE_CLASS_ROAD) || (nearby_tile_class(1,2)==TILE_CLASS_ROAD))) { 
-   1: return not_low_switch; 
-    return 0;
-} 
+switch (FEAT_HOUSES, SELF, roadNW_switch, ((nearby_tile_class(0,2)==TILE_CLASS_ROAD) || (nearby_tile_class(1,2)==TILE_CLASS_ROAD))) {return ;}
 
-switch (FEAT_HOUSES, SELF, roadNW_not_low_switch_desert_or_rainforest, terrain_type) { 
-   TILETYPE_RAIN_FOREST: return roadNW_not_low_switch; 
-   TILETYPE_DESERT: return roadNW_not_low_switch;
+
+switch (FEAT_HOUSES, SELF, desert_or_rainforest_switch, terrain_type) { 
+   TILETYPE_RAIN_FOREST: return 1; 
+   TILETYPE_DESERT: return 1;
     return 0;
 } 
 
