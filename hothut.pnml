@@ -12,8 +12,39 @@ grf {
             name: string(STR_PARAM_NAME_KEEP_ORIG);
             desc: string(STR_PARAM_DESC_KEEP_ORIG);
         }
-    }
-}
+	}
+	param {
+         param_custom_poles {
+            type: int;
+            min_value: 0;
+            max_value: 2;
+            def_value: 1;
+            name: string(STR_PARAM_NAME_CUSTOM_POLES);
+            desc: string(STR_PARAM_DESC_CUSTOM_POLES);
+            names: {
+                     0: string(STR_PARAM_DISABLE);
+                     1: string(STR_PARAM_FROM1920);
+                     2: string(STR_PARAM_ENABLE);
+                   };
+        }
+	}
+	param {
+          param_custom_pavements {
+            type: int;
+            min_value: 0;
+            max_value: 2;
+            def_value: 1;
+            name: string(STR_PARAM_NAME_CUSTOM_PAVEMENTS);
+            desc: string(STR_PARAM_DESC_CUSTOM_PAVEMENTS);
+            names: {
+                     0: string(STR_PARAM_DISABLE);
+                     1: string(STR_PARAM_FROM1920);
+                     2: string(STR_PARAM_ENABLE);
+                   };
+        }
+	}
+
+} 
 
 if(!param_keep_orig) {
     disable_item(FEAT_HOUSES);

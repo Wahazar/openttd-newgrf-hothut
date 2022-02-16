@@ -1,50 +1,43 @@
 #define SPRITESET_5(name) spriteset (spriteset_##name)   \
  {template_houses_70(0,303,"name##.png")}
 
-/*
-#define SPRITENAME clayhuts
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME clayhuts_gnd
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claygranaries
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claygranaries_gnd
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claygranaries_fences
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claygranaries_fences_gnd
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME clayspecials
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME clayspecials_gnd
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claypalace
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
-#define SPRITENAME claypalace_gnd
- SPRITESET_5 (SPRITENAME)
-#undef SPRITENAME
-
+/* 
+ sprite replacement
 */
 
+if (((param_custom_poles == 1) && (year_loaded<1920)) || (param_custom_poles == 2))  {
+replace pole1(1406, "gfx/street_poles.png") {
+ 		[ 1,0, 6,14, 0, -13]
+ }
+replace pole2(1407, "gfx/street_poles.png") {
+ 		[ 8,0, 6,14, -4, -12]
+ }
+}
+
+//1313-1331 road city
+replace roadspr1313(1313, "gfx/pavements.png") { [ 434, 13,  64,  31, -31,   0] }
+replace roadspr1314(1314, "gfx/pavements.png") { [ 514, 13,  64,  31, -31,   0] }
+replace roadspr1315(1315, "gfx/pavements.png") { [ 594, 13,  64,  31, -31,   0] }
+replace roadspr1316(1316, "gfx/pavements.png") { [ 674, 13,  64,  31, -31,   0] }
+replace roadspr1317(1317, "gfx/pavements.png") { [   2, 77,  64,  31, -31,   0] }
+replace roadspr1318(1318, "gfx/pavements.png") { [  82, 77,  64,  31, -31,   0] }
+replace roadspr1319(1319, "gfx/pavements.png") { [ 162, 77,  64,  31, -31,   0] }
+replace roadspr1320(1320, "gfx/pavements.png") { [ 242, 77,  64,  31, -31,   0] }
+replace roadspr1321(1321, "gfx/pavements.png") { [ 322, 77,  64,  31, -31,   0] }
+replace roadspr1322(1322, "gfx/pavements.png") { [ 402, 77,  64,  31, -31,   0] }
+replace roadspr1323(1323, "gfx/pavements.png") { [ 482, 77,  64,  31, -31,   0] }
+replace roadspr1324(1324, "gfx/pavements.png") { [ 562, 77,  64,  39, -31,  -8] }
+replace roadspr1325(1325, "gfx/pavements.png") { [ 642, 77,  64,  23, -31,   0] }
+replace roadspr1326(1326, "gfx/pavements.png") { [ 722, 77,  64,  23, -31,   0] }
+replace roadspr1327(1327, "gfx/pavements.png") { [   2, 141,  64,  39, -31,  -8] }
+replace roadspr1328(1328, "gfx/pavements.png") { [  82, 141,  64,  31, -31,   0] }
+replace roadspr1329(1329, "gfx/pavements.png") { [ 162, 141,  64,  31, -31,   0] }
+replace roadspr1330(1330, "gfx/pavements.png") { [ 242, 141,  64,  31, -31,   0] }
+replace roadspr1331(1331, "gfx/pavements.png") { [ 322, 141,  64,  31, -31,   0] }
+
+
 /* 
+ sprites
 */
 spriteset (spriteset_clayhuts)
 	{	template_houses_70(0,303,"gfx/clayhuts.png")}
@@ -238,16 +231,39 @@ spriteset (spriteset_desert_houses1_gnd)
 	{	template_houses_70(0,303,"gfx/desert_houses1_gnd.png")}
 spriteset (spriteset_desert_houses1_c1)
 	{	template_houses_70(0,202,"gfx/desert_houses1.png")}
-		
-/* fail
-switch (FEAT_HOUSES, SELF, spriteset_residental3_rswitch1_gnd, pseudo_random_bits) { 
-	0..1: return spriteset_residental3_garden1_gnd(1); 
-    	return spriteset_residental3_garden2_gnd(4); 
-} 
-switch (FEAT_HOUSES, SELF, spriteset_residental3_rswitch1, pseudo_random_bits) { 
-	0..1: return spriteset_residental3_garden1(1); 
-    	return spriteset_residental3_garden2(4); 
-} 
-*/
+	
+spriteset (spriteset_desert_houses3)
+	{	template_houses_70(0,303,"gfx/desert_houses3.png")}
+spriteset (spriteset_desert_houses3_gnd)
+	{	template_houses_70(0,303,"gfx/desert_houses3_gnd.png")}
 
+spriteset (spriteset_wattle_houses1)
+	{	template_houses_70(0,303,"gfx/wattle_houses1.png")}
+spriteset (spriteset_wattle_houses1_gnd)
+	{	template_houses_70(0,303,"gfx/wattle_houses1_gnd.png")}
+
+spriteset (spriteset_desert_town_houses1)
+	{	template_houses_70(0,303,"gfx/desert_town_houses1.png")}
+spriteset (spriteset_desert_town_houses1_gnd)
+	{	template_houses_70(0,303,"gfx/desert_town_houses1_gnd.png")}
+
+spriteset (spriteset_desert_town_houses2)
+	{	template_houses_70(0,303,"gfx/desert_town_houses2.png")}
+spriteset (spriteset_desert_town_houses2_gnd)
+	{	template_houses_70(0,303,"gfx/desert_town_houses2_gnd.png")}
+
+spriteset (spriteset_misc)
+	{	template_houses_70(0,303,"gfx/misc.png")}
+spriteset (spriteset_misc_gnd)
+	{	template_houses_70(0,303,"gfx/misc_gnd.png")}
+
+spriteset (spriteset_yemeni_city_houses1)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses1.png")}
+spriteset (spriteset_yemeni_city_houses1_gnd)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses1_gnd.png")}
+spriteset (spriteset_yemeni_city_houses2)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses2.png")}
+spriteset (spriteset_yemeni_city_houses2_gnd)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses2_gnd.png")}
+								
 
