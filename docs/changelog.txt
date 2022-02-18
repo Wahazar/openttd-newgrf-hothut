@@ -1,2 +1,12 @@
-Version 0.1
-- Initial repo
+Versions:
+ 3.0
+ - improved switches
+ - custom lanterns and pavements
+ 2.0
+ - hothut custom houses
+ 1.0
+ - Default houses with changed features
+ 0.2
+ - Spreadsheet framework for nml generation
+ 0.1
+ - Initial repo
