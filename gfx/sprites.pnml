@@ -267,4 +267,18 @@ spriteset (spriteset_yemeni_city_houses2)
 spriteset (spriteset_yemeni_city_houses2_gnd)
 	{	template_houses_70(0,303,"gfx/yemeni_city_houses2_gnd.png")}
 								
+//spriteset (spriteset_flogeza_hotels_1)
+//	{	template_houses_tall(0,148,"gfx/flogeza_hotels_1.png")}
+spriteset (spriteset_flogeza_hotels_1_upper)
+	{	template_houses_tall(0,148,"gfx/flogeza_hotels_1.png")}
+spriteset (spriteset_flogeza_hotels_2_upper)
+	{	template_houses_tall(0,148,"gfx/flogeza_hotels_2.png")}
+
+spriteset (spriteset_unfinished_flats)
+	{	template_houses_70(0,303,"gfx/unfinished_flats.png")}
+spriteset (spriteset_unfinished_flats_gnd)
+	{	template_houses_70(0,303,"gfx/unfinished_flats_gnd.png")}
+spriteset (spriteset_unfinished_flats_c2)
+	{	template_houses_70(0,202,"gfx/unfinished_flats.png")}
+
 

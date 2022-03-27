@@ -243,6 +243,8 @@ switch (FEAT_HOUSES, SELF, noresidentials_nearby_switch, 	((nearby_tile_house_cl
     return 1;
 } 
 
+switch (FEAT_HOUSES, SELF, no_slope00_switch, (nearby_tile_slope(0,0) == SLOPE_FLAT)) {return;}
+
 switch (FEAT_HOUSES, SELF, slope_NE_switch, (nearby_tile_slope(0,0) == SLOPE_NE)) {return;}
 
  

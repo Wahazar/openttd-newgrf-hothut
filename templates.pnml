@@ -9,6 +9,14 @@ template template_houses_70(x,y,filename)
 }
 
 
+template template_houses_tall(x,y,filename)
+	{
+		[x,      y,      64,     255,     -31,    -224,    filename]
+	    [x+65,   y,      64,     255,     -31,    -224,    filename]
+	    [x+130,  y,      64,     255,     -31,    -224,    filename]
+		[x+195,  y,      64,     255,     -31,    -224,    filename]
+		[x+260,  y,      64,     255,     -31,    -224,    filename]   
+}
 
 
 

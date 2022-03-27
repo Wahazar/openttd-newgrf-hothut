@@ -38,7 +38,7 @@ switch (FEAT_HOUSES, SELF, switch_##bprefix##_2_##bswitchname, house_tile) { \
 }  \
 
 /* snow aware, constructions stages sprite layout for building */
-#define HOUSELAYOUT1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,foo1,foo2,foo3,foo4,foo5,foo6,foo7,foo8,foo9,cargo1a,cargo2a,cargo3a,fooa,foob,fooc,bcolour,cargo1t,cargo2t,cargo3t,foo0,bid,fooo)  \
+#define HOUSELAYOUT1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,foo1,foo2,foo3,foo4,foo5,foo6,foo7,cargo1a,cargo2a,cargo3a,foo8,foo9,fooa,foob,fooc,bcolour,cargo1t,cargo2t,cargo3t,foo0,bid,fooo)  \
   \
 spritelayout layout_##bprefix##_stage0_##bname##_construction { \
     ground { \
@@ -133,9 +133,9 @@ switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_construction, cons
 
 /* one tile building */
 
-#define TOWNBUILDING1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* one tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 \
 RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
  \
@@ -178,9 +178,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
     }  \
 }
 
-#define TOWNBUILDINGV2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDINGV2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* one tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
  \
 switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_random2, pseudo_random_bits) { \
@@ -228,9 +228,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
     }  \
 }
 
-#define TOWNBUILDINGV4(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDINGV4(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* one tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 RECOLOUR_SWITCH(bprefix##_##bname, bcolour) \
  \
 switch (FEAT_HOUSES, SELF, switch_##bprefix##_house_##bname##_random4, pseudo_random_bits) { \
@@ -268,9 +268,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X1) {  \
     }  \
 }
 
-#define TOWNBUILDING1X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING1X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* north tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 /* east tile defined separately   \
 HOUSELAYOUT1 (bprefix##_E,bname,bclass,spritegE,spritegsnE,spritec1E,spritec2E,spritebE,spritesnE,bsizez,16) */  \
  \
@@ -303,9 +303,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X2) {  \
     }  \
 }
 
-#define TOWNBUILDING2X1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING2X1(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* north tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 /* east tile defined separately   \
 HOUSELAYOUT1 (bprefix##_W,bname,bclass,spritegW,spritegsnW,spritec1W,spritec2W,spritebW,spritesnW,bsizez,16) */ \
  \
@@ -338,9 +338,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_2X1) {  \
     }  \
 }
 
-#define TOWNBUILDING2X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING2X2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* north tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 /* south, east, west tile defined separately  \
 HOUSELAYOUT1 (bprefix##_S,bname,bclass,spritegS,spritegsnS,spritec1S,spritec2S,spritebS,spritesnS,bsizez,16) \
 HOUSELAYOUT1 (bprefix##_E,bname,bclass,spritegE,spritegsnE,spritec1E,spritec2E,spritebE,spritesnE,bsizez,16) \
@@ -378,9 +378,9 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_2X2) {  \
 } 
 
 
-#define TOWNBUILDING1X2V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING1X2V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 /* north tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 /* east tile and V2 tiles defined separately   \
 HOUSELAYOUT1 (...) */  \
  \
@@ -426,10 +426,10 @@ item (FEAT_HOUSES, bld_##bprefix##_##bname##_name, bid, HOUSE_SIZE_1X2) {  \
     }  \
 }
 
-#define TOWNBUILDING2X1V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
+#define TOWNBUILDING2X1V2(foo,bprefix,bname,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo)  \
 \
 /* north tile */  \
-HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bcost,bprop,blife,bstring,brating,bmail,cargo1a,cargo2a,cargo3a,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
+HOUSELAYOUT1 (foo,bprefix,bname##_N,bclass,bcheckswitch,spriteg,spritegsn,spritec1,spritec2,spriteb,spritesn,boffset,bsizez,bsizexy,bspecterrain,yearstart,yearend,bpopul,bmail,bprop,blife,bstring,cargo1a,cargo2a,cargo3a,brating,bcost,bflags,bavail,bzone,bcolour,cargo1t,cargo2t,cargo3t,bsubstitute,bid,fooo) \
 /* west tile, west V2 tile and W V2 tile defined separately   \
 HOUSELAYOUT1 ... */ \
  \
