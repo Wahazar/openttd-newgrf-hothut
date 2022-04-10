@@ -282,3 +282,9 @@ spriteset (spriteset_unfinished_flats_c2)
 	{	template_houses_70(0,202,"gfx/unfinished_flats.png")}
 
 
+spriteset (spriteset_yemeni_city_houses3)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses3.png")}
+spriteset (spriteset_yemeni_city_houses3_gnd)
+	{	template_houses_70(0,303,"gfx/yemeni_city_houses3_gnd.png")}
+spriteset (spriteset_yemeni_city_houses3_c2)
+	{	template_houses_70(0,202,"gfx/yemeni_city_houses3.png")}

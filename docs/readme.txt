@@ -14,4 +14,17 @@ thus they can be used for water delivery in absence of water tower industry.
 ToDo: construction stages, more modern houses.
 
 Author: G. Wahazar
-Acknowledgements: SwissFan91 for TARS house templates and some shed drawings.
+Acknowledgements: SwissFan91 for TARS house templates and some shed drawings. 
+Flogeza for some skyscrapper sprites from his city extra objects newgrf.
+Authors of opengfx houses used as a base of this set.
+
+Source generation:
+1. save House_spectable_tropic*.xls spreadshet as comma delimited temporary .csv file;
+2. open .csv file in text editor
+3. search&replace all " | " with ", "
+4. copy content of .csv file into tropic.html file
+
+Compilation:
+make clean 
+make install
+
