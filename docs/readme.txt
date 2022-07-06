@@ -16,6 +16,7 @@ ToDo: construction stages, more modern houses.
 Author: G. Wahazar
 Acknowledgements: SwissFan91 for TARS house templates and some shed drawings. 
 Flogeza for some skyscrapper sprites from his city extra objects newgrf.
+Andythenorth for parking plot drawings.
 Authors of opengfx houses used as a base of this set.
 
 Source generation:

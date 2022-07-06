@@ -1,0 +1,67 @@
+
+spritelayout layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_cars { 
+ground { sprite: GROUNDSPRITE_NORMAL + 0;
+ }
+ childsprite { sprite: spriteset_slums_flats_gnd(2);
+ always_draw: 1;
+ }
+ building { sprite: spriteset_slums_flats(2);
+ xoffset: 8-(16/2);
+ yoffset: 8-(16/2);
+ zoffset: 0;
+ xextent: 16;
+ yextent: 16;
+ zextent: 8;
+ recolour_mode: RECOLOUR_REMAP;
+ palette: PALETTE_USE_DEFAULT;
+ }
+}
+ spritelayout layout_BASETROP_specterrain_PARKING_LOT_FLAT_finished_cars { 
+ ground { sprite: GROUNDSPRITE_DESERT_1_2 + 0;
+ }
+ childsprite { sprite: spriteset_slums_flats_gnd(2);
+ always_draw: 1;
+ }
+ building { sprite: spriteset_slums_flats(2);
+ xoffset: 8-(16/2);
+ yoffset: 8-(16/2);
+ zoffset: 0;
+ xextent: 16;
+ yextent: 16;
+ zextent: 8;
+ recolour_mode: RECOLOUR_REMAP;
+ palette: PALETTE_USE_DEFAULT;
+ }
+}
+
+switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars, terrain_type) { 
+ TILETYPE_DESERT: return layout_BASETROP_specterrain_PARKING_LOT_FLAT_finished_cars;
+ TILETYPE_NORMAL: return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_cars;
+ return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished;
+}
+
+//switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_next_frame, 0) { 
+// return CB_RESULT_NEXT_FRAME;
+//}
+
+
+switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_finished_animation, animation_frame) {
+	0:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
+	1:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars;
+switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
+}
+
+
+item (FEAT_HOUSES, bld_BASETROP_PARKING_LOT_FLAT_name, 231, HOUSE_SIZE_1X1) { 
+ property { 
+  animation_info:     [ANIMATION_NON_LOOPING, 2];
+  animation_speed:    9;
+  watched_cargo_types: [PASS];
+ }
+ graphics {
+ default: switch_BASETROP_house_PARKING_LOT_FLAT_finished_animation;
+// anim_control: CB_RESULT_STOP_ANIMATION;
+ anim_next_frame: 0;
+ watched_cargo_accepted : 1;
+ }
+}

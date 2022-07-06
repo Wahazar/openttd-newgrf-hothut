@@ -2,8 +2,8 @@ grf {
 	grfid: "MC\21\01";
 	name: string(STR_GRF_NAME);
 	desc: string(STR_GRF_DESCRIPTION);
-	version: 4;
-	min_compatible_version: 3;
+	version: 9;
+	min_compatible_version: 8;
 
 	param {
         param_keep_orig {
@@ -95,7 +95,7 @@ if(!param_keep_orig) {
 #define LT_GOVERNMENT     40
 #define LT_UNREMOVABLE    60
 
-cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR, LVST }
+cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR, LVST, VEHI }
 
 #define MAX_YEAR 9999
 
@@ -107,6 +107,8 @@ cargotable { PASS, MAIL, GOOD, FOOD, WATR, TOUR, LVST }
 
 #include "tropic.pnml"
 
+
+#include "additional.pnml"
 
 
 

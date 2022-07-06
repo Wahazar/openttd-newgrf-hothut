@@ -288,3 +288,25 @@ spriteset (spriteset_yemeni_city_houses3_gnd)
 	{	template_houses_70(0,303,"gfx/yemeni_city_houses3_gnd.png")}
 spriteset (spriteset_yemeni_city_houses3_c2)
 	{	template_houses_70(0,202,"gfx/yemeni_city_houses3.png")}
+	
+spriteset (spriteset_forts_desert_modern)
+	{	template_houses_70(0,303,"gfx/forts_desert_modern.png")}
+spriteset (spriteset_forts_desert_modern_gnd)
+	{	template_houses_70(0,303,"gfx/forts_desert_modern_gnd.png")}
+spriteset (spriteset_forts_desert_modern_c2)
+	{	template_houses_70(0,202,"gfx/forts_desert_modern.png")}
+	
+spriteset (spriteset_flats_slope_NE)
+	{	template_houses_70(0,303,"gfx/flats_slope_NE.png")}
+spriteset (spriteset_flats_slope_NE_gnd)
+	{	template_houses_70(0,303,"gfx/flats_slope_NE_gnd.png")}
+spriteset (spriteset_flats_slope_NE_constr)
+	{	template_houses_70(0,202,"gfx/flats_slope_NE.png")}
+	
+spriteset (spriteset_slums_flats)
+	{	template_houses_70(0,303,"gfx/slums_flats.png")}
+spriteset (spriteset_slums_flats_gnd)
+	{	template_houses_70(0,303,"gfx/slums_flats_gnd.png")}
+spriteset (spriteset_slums_flats_constr)
+	{	template_houses_70(0,202,"gfx/slums_flats.png")}
+

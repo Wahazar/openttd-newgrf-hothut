@@ -1,4 +1,18 @@
 Versions:
+ 9.0
+  - waterside flats, parking lot
+ 8.0
+  - modern desert fort
+ 7.0 
+  - more colonial buildings
+ 6.0 
+  - shop mall added
+ 5.0
+  - more default buildings from temperate and arctic set
+  - more city buildings
+  - improved location switches
+ 4.0 
+ - Flogeza skyscrappers objects
  3.0
  - improved switches
  - custom lanterns and pavements
