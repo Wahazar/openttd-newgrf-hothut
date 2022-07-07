@@ -1,4 +1,20 @@
 
+spritelayout layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_no_cars { 
+ground { sprite: GROUNDSPRITE_NORMAL + 0;
+ }
+ childsprite { sprite: spriteset_slums_flats_gnd(2);
+ always_draw: 1;
+ }
+}
+
+spritelayout layout_BASETROP_specterrain_PARKING_LOT_FLAT_finished_no_cars { 
+ ground { sprite: GROUNDSPRITE_DESERT_1_2 + 0;
+ }
+ childsprite { sprite: spriteset_slums_flats_gnd(2);
+ always_draw: 1;
+ }
+}
+
 spritelayout layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_cars { 
 ground { sprite: GROUNDSPRITE_NORMAL + 0;
  }
@@ -34,34 +50,55 @@ ground { sprite: GROUNDSPRITE_NORMAL + 0;
  }
 }
 
+switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_no_cars, terrain_type) { 
+ TILETYPE_DESERT: return layout_BASETROP_specterrain_PARKING_LOT_FLAT_finished_no_cars;
+ TILETYPE_NORMAL: return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_no_cars;
+ return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished;
+}
+
 switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars, terrain_type) { 
  TILETYPE_DESERT: return layout_BASETROP_specterrain_PARKING_LOT_FLAT_finished_cars;
  TILETYPE_NORMAL: return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished_cars;
  return layout_BASETROP_normterrain_PARKING_LOT_FLAT_finished;
 }
 
-//switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_next_frame, 0) { 
-// return CB_RESULT_NEXT_FRAME;
-//}
+switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_next_frame, animation_frame) { 
+ 0: return CB_RESULT_STOP_ANIMATION;
+ 4: return 0;
+ return CB_RESULT_NEXT_FRAME;
+}
 
+random_switch (FEAT_HOUSES, SELF, random_switch_BASETROP_house_PARKING_LOT_FLAT_frame_0, bitmask(TRIGGER_HOUSE_TILELOOP)) {
+	2: return switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_no_cars;
+	1: return switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
+}
+
+random_switch (FEAT_HOUSES, SELF, random_switch_BASETROP_house_PARKING_LOT_FLAT_frame, bitmask(TRIGGER_HOUSE_TILELOOP)) {
+	2: return 1;
+	2: return 2;
+	1: return 3;
+}
 
 switch (FEAT_HOUSES, SELF, switch_BASETROP_house_PARKING_LOT_FLAT_finished_animation, animation_frame) {
-	0:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
-	1:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars;
+	0:  random_switch_BASETROP_house_PARKING_LOT_FLAT_frame_0;
+	1:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
+	2:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars;
+	3:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware_cars;
+	4:  switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
 switch_BASETROP_house_PARKING_LOT_FLAT_finished_terrainaware;
 }
 
 
 item (FEAT_HOUSES, bld_BASETROP_PARKING_LOT_FLAT_name, 231, HOUSE_SIZE_1X1) { 
  property { 
-  animation_info:     [ANIMATION_NON_LOOPING, 2];
-  animation_speed:    9;
+  animation_info:     [ANIMATION_NON_LOOPING, 5];
+  animation_speed:    8;
   watched_cargo_types: [PASS];
  }
  graphics {
  default: switch_BASETROP_house_PARKING_LOT_FLAT_finished_animation;
 // anim_control: CB_RESULT_STOP_ANIMATION;
- anim_next_frame: 0;
- watched_cargo_accepted : 1;
+ anim_next_frame: return switch_BASETROP_house_PARKING_LOT_FLAT_next_frame;
+ watched_cargo_accepted : return random_switch_BASETROP_house_PARKING_LOT_FLAT_frame;
  }
 }

@@ -191,7 +191,7 @@ switch (FEAT_HOUSES, SELF, sametypenearby10_max_switch, nearest_house_matching_c
 }
 
 
-switch (FEAT_HOUSES, SELF, nearby_track_switch, ((nearby_tile_class(1,0)==TILE_CLASS_STATION) || (nearby_tile_class(0,1)==TILE_CLASS_STATION) || (nearby_tile_class(0,-1)==TILE_CLASS_STATION) || (nearby_tile_class(-1,0)==TILE_CLASS_STATION))) { 
+switch (FEAT_HOUSES, SELF, nearby_track_switch, ((nearby_tile_class(1,0)==TILE_CLASS_RAIL) || (nearby_tile_class(0,1)==TILE_CLASS_RAIL) || (nearby_tile_class(0,-1)==TILE_CLASS_RAIL) || (nearby_tile_class(-1,0)==TILE_CLASS_RAIL))) { 
     1 : return 1; 
     return 0;
 }
